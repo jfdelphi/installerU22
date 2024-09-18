@@ -11,54 +11,9 @@ echo "Backing up the original rsyslog configuration..."
 sudo cp /etc/rsyslog.conf /etc/rsyslog.conf.bak
 # Update rsyslog.conf for remote UDP logging
 echo "Configuring rsyslog to send logs to $REMOTE_SYSLOG_IP via UDP..."
-sudo bash -c "cat >> /etc/rsyslog.conf <<EOL
 
-###############
-#### RULES ####
-###############
+wget -O /etc/rsyslog.conf https://raw.githubusercontent.com/jfdelphi/installerU22/main/rsyslog.conf
 
-#
-# First some standard log files.  Log by facility.
-#
-auth,authpriv.*                 /var/log/auth.log
-*.*;auth,authpriv.none          -/var/log/syslog
-#cron.*                         /var/log/cron.log
-daemon.*                        -/var/log/daemon.log
-kern.*                          -/var/log/kern.log
-lpr.*                           -/var/log/lpr.log
-mail.*                          -/var/log/mail.log
-user.*                          -/var/log/user.log
-
-#
-# Logging for the mail system.  Split it up so that
-# it is easy to write scripts to parse these files.
-#
-mail.info                       -/var/log/mail.info
-mail.warn                       -/var/log/mail.warn
-mail.err                        /var/log/mail.err
-
-#
-# Some "catch-all" log files.
-#
-*.=debug;\
-        auth,authpriv.none;\
-        mail.none               -/var/log/debug
-*.=info;*.=notice;*.=warn;\
-        auth,authpriv.none;\
-        cron,daemon.none;\
-        mail.none               -/var/log/messages
-
-#
-# Emergencies are sent to everybody logged in.
-#
-*.emerg                         :omusrmsg:*
-
-# Enable UDP syslog reception
-module(load=\"imudp\")
-input(type=\"imudp\" port=\"$SYSLOG_PORT\")
-# Send all logs to remote syslog server via UDP
-*.* @$REMOTE_SYSLOG_IP:$SYSLOG_PORT
-EOL"
 
 # Restart rsyslog service to apply changes
 echo "Restarting rsyslog service..."
