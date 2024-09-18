@@ -39,3 +39,5 @@ echo "Configuring firewall to allow traffic on port $SYSLOG_PORT (UDP)..."
 sudo ufw allow $SYSLOG_PORT/udp
 
 echo "Syslog configuration completed. Logs are being sent to $REMOTE_SYSLOG_IP via UDP on port $SYSLOG_PORT."
+
+logger "test"
