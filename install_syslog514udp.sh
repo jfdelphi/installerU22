@@ -18,14 +18,18 @@ input(type=\"imudp\" port=\"$SYSLOG_PORT\")
 # Send all logs to remote syslog server via UDP
 *.* @$REMOTE_SYSLOG_IP:$SYSLOG_PORT
 EOL"
+
 # Restart rsyslog service to apply changes
 echo "Restarting rsyslog service..."
 sudo systemctl restart rsyslog
+
 # Check the status of rsyslog
 echo "Checking rsyslog status..."
 sudo systemctl status rsyslog 
+
 # Verify if the firewall allows UDP syslog traffic
 echo "Configuring firewall to allow traffic on port $SYSLOG_PORT (UDP)..."
 sudo ufw allow $SYSLOG_PORT/udp
+
 echo "Syslog configuration completed. Logs are being sent to $REMOTE_SYSLOG_IP via UDP on port $SYSLOG_PORT."
 logger "Test message from hostname: $(hostname)"
