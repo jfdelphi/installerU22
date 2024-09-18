@@ -12,4 +12,4 @@ Help: I’m reaching out because I need your support to make this happen!
 install greylog with ONE line 
 =============================
 
-"wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/fabc4299b81a0ddbcecb12cafc992e72a998e4d3/install-graylog.sh | bash"
+wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/fabc4299b81a0ddbcecb12cafc992e72a998e4d3/install-graylog.sh | bash
