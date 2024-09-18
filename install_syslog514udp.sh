@@ -32,7 +32,7 @@ sudo systemctl restart rsyslog
 #
 # Check the status of rsyslog
 echo "Checking rsyslog status..."
-sudo systemctl status rsyslog | grep "active (running)"
+sudo systemctl status rsyslog 
 #
 # Verify if the firewall allows UDP syslog traffic
 echo "Configuring firewall to allow traffic on port $SYSLOG_PORT (UDP)..."
