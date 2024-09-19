@@ -1,3 +1,5 @@
+THIS SCRIPTS ARE NOT GOOD ENOGH .. I WORK ON IT
+
 Goal: Let's pour our heart and soul into creating installers that:
 
 - Work perfectly and exclusively on Ubuntu 22.04 LTS.
