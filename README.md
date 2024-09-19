@@ -16,3 +16,6 @@ sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/fabc4299b
 
 
 sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/main/install_syslog514udp.sh  | bash
+
+
+sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/main/install_showComputerinfo.sh   | bash
