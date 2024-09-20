@@ -11,7 +11,7 @@ Goal: Let's pour our heart and soul into creating installers that:
 Help: I’m reaching out because I need your support to make this happen!
 
 
-install graylog with ONE line 
+install with ONE line 
 =============================
 ```
 sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/fabc4299b81a0ddbcecb12cafc992e72a998e4d3/install-graylog.sh | bash
