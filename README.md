@@ -13,6 +13,7 @@ Help: I’m reaching out because I need your support to make this happen!
 
 install graylog with ONE line 
 =============================
+```
 sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/fabc4299b81a0ddbcecb12cafc992e72a998e4d3/install-graylog.sh | bash
 
 sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/main/install_syslog514udp.sh  | bash
@@ -20,3 +21,4 @@ sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/main/inst
 sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/main/install_showComputerinfo.sh   | bash
 
 sudo wget -qO- https://raw.githubusercontent.com/jfdelphi/installerU22/refs/heads/main/install-podman.sh | bash
+```
