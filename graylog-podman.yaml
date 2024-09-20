@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: graylog
+  labels:
+    app: gralog
+
+spec:
+  containers:
+    - name: mongodb
+      image: mongo:6.0.14
+      volumeMounts:
+        - mountPath: /data/db
+          name: mongodb-data
+
+    - name: opensearch
+      image: opensearchproject/opensearch:2.12.0
+      env:
+        - name: OPENSEARCH_JAVA_OPTS
+          value: "-Xms1g -Xmx1g" #edit for your need
+        - name: bootstrap.memory_lock
+          value: "true"
+        - name: discovery.type
+          value: "single-node"
+        - name: action.auto_create_index
+          value: "false"
+        - name: plugins.security.ssl.http.enabled
+          value: "false"
+        - name: plugins.security.disabled
+          value: "true"
+        - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+          value: "+_8r#wliY3Pv5-HMIf4qzXImYzZf-M=M" #Edit this password too you can use command "tr -dc A-Z-a-z-0-9_@#%^-_=+ < /dev/urandom | head -c${1:-32}"
+
+    - name: graylog
+      image: graylog/graylog:6.0
+      env:
+        - name: GRAYLOG_NODE_ID_FILE
+          value: "/usr/share/graylog/data/config/node-id"
+        - name: GRAYLOG_HTTP_BIND_ADDRESS
+          value: "0.0.0.0:9000"
+        - name: GRAYLOG_ELASTICSEARCH_HOSTS
+          value: "http://opensearch:9200"
+        - name: GRAYLOG_MONGODB_URI
+          value: "mongodb://mongodb:27017/graylog"
+        - name: GRAYLOG_REPORT_DISABLE_SANDBOX
+          value: "true"
+        - name: GRAYLOG_PASSWORD_SECRET
+          value: "somepasswordpepper"
+        - name: GRAYLOG_ROOT_PASSWORD_SHA2
+          value: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+        - name: GRAYLOG_HTTP_EXTERNAL_URI
+          value: "http://127.0.0.1:9000/"
+      volumeMounts:
+        - mountPath: /usr/share/graylog/data/data
+          name: graylog-data
+        - mountPath: /usr/share/graylog/data/journal
+          name: graylog-journal
+      ports:
+        - containerPort: 9000
+        - containerPort: 5044
+        - containerPort: 5140
+        - containerPort: 12201
+        - containerPort: 13301
+        - containerPort: 13302
+  volumes:
+    - name: graylog-data
+      persistentVolumeClaim:
+        claimName: graylog-data-pvc
+    - name: graylog-journal
+      persistentVolumeClaim:
+        claimName: graylog-journal-pvc
+    - name: mongodb-data
+      persistentVolumeClaim:
+        claimName: mongodb-pvc
